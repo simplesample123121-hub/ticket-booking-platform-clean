@@ -1,0 +1,5 @@
+[33mc0c9b6d1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Completely remove GET handler to fix build issue
+[33m66d841c5[m Temporarily comment out GET handler to test build compatibility
+[33m8c7c180e[m Fix GET handler to use NextRequest type for Next.js App Router compatibility
+[33mec88da1b[m Fix GET handler signature for Next.js API route
+[33m3c98219b[m sas
