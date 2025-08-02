@@ -25,6 +25,8 @@ export async function POST(
   }
 }
 
+// Temporarily commented out to test build
+/*
 export async function GET(
   request: NextRequest,
   { params }: { params: { txnid: string } }
@@ -54,4 +56,5 @@ export async function GET(
       { status: 500 }
     )
   }
-} 
+}
+*/ 
