@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Calendar, Clock, MapPin, Users, Star, ArrowLeft, Badminton } from 'lucide-react'
+import { Calendar, Clock, MapPin, Users, Star, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { eventsApi, Event } from '@/lib/api/events'
 
@@ -81,8 +81,6 @@ export default function EventDetailsPage({ params }: EventDetailsPageProps) {
         return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300'
     }
   }
-
-  const isBadmintonTournament = event.tags?.includes('badminton') || event.name.toLowerCase().includes('badminton')
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -188,33 +186,6 @@ export default function EventDetailsPage({ params }: EventDetailsPageProps) {
                   </div>
                 </div>
 
-                {/* Tournament Information for Badminton Events */}
-                {isBadmintonTournament && (
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">🏸 Tournament Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-blue-50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-blue-800 mb-2">Tournament Format</h4>
-                        <ul className="text-sm text-blue-700 space-y-1">
-                          <li>• Doubles format - 2 players per team</li>
-                          <li>• Knockout format with consolation rounds</li>
-                          <li>• Professional refereeing</li>
-                          <li>• Age verification required</li>
-                        </ul>
-                      </div>
-                      <div className="bg-green-50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-green-800 mb-2">What's Included</h4>
-                        <ul className="text-sm text-green-700 space-y-1">
-                          <li>• Tournament T-shirt for both players</li>
-                          <li>• Refreshments and water</li>
-                          <li>• Participation certificates</li>
-                          <li>• Prizes for winners</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 {/* Tags */}
                 {event.tags && event.tags.length > 0 && (
                   <div>
@@ -237,83 +208,36 @@ export default function EventDetailsPage({ params }: EventDetailsPageProps) {
             {/* Booking Card */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  {isBadmintonTournament ? <Badminton className="w-5 h-5" /> : null}
-                  {isBadmintonTournament ? 'Register for Tournament' : 'Book Tickets'}
-                </CardTitle>
+                <CardTitle>Book Tickets</CardTitle>
                 <CardDescription>
-                  {isBadmintonTournament 
-                    ? 'Register your team for this exciting badminton tournament'
-                    : 'Secure your spot at this amazing event'
-                  }
+                  Secure your spot at this amazing event
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {isBadmintonTournament ? (
-                  <>
-                    <div className="space-y-3">
-                      <div className="bg-blue-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-blue-800">Kids (7-9 years)</h4>
-                        <div className="flex justify-between text-sm">
-                          <span>Boys / Girls</span>
-                          <span className="font-semibold">₹100 per team</span>
-                        </div>
-                      </div>
-                      <div className="bg-green-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-green-800">Juniors (10-14 years)</h4>
-                        <div className="flex justify-between text-sm">
-                          <span>Boys / Girls</span>
-                          <span className="font-semibold">₹200 per team</span>
-                        </div>
-                      </div>
-                      <div className="bg-purple-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-purple-800">Adults (15+ years)</h4>
-                        <div className="flex justify-between text-sm">
-                          <span>Men's / Women's</span>
-                          <span className="font-semibold">₹400 per team</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span>Available Spots</span>
-                        <span className="font-medium">{event.available_tickets}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Total Teams</span>
-                        <span className="font-medium">{event.ticket_count}</span>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-primary">₹{event.price}</span>
-                      <span className="text-sm text-muted-foreground">per ticket</span>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span>Available Tickets</span>
-                        <span className="font-medium">{event.available_tickets}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Total Tickets</span>
-                        <span className="font-medium">{event.ticket_count}</span>
-                      </div>
-                    </div>
-                  </>
-                )}
+                <div className="flex justify-between items-center">
+                  <span className="text-2xl font-bold text-primary">${event.price}</span>
+                  <span className="text-sm text-muted-foreground">per ticket</span>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span>Available Tickets</span>
+                    <span className="font-medium">{event.available_tickets}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Total Tickets</span>
+                    <span className="font-medium">{event.ticket_count}</span>
+                  </div>
+                </div>
 
                 <Button asChild className="w-full" size="lg">
                   <Link href={`/events/${event.$id}/book`}>
-                    {isBadmintonTournament ? 'Register Now' : 'Book Now'}
+                    Book Now
                   </Link>
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">
-                  {isBadmintonTournament ? 'Secure tournament registration' : 'Secure payment processing'}
+                                      Secure payment processing
                 </p>
               </CardContent>
             </Card>

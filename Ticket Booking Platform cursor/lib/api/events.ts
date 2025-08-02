@@ -75,32 +75,6 @@ const sampleEvents: Event[] = [
     }),
     created_at: '2024-01-01T00:00:00Z',
     updated_at: '2024-01-01T00:00:00Z'
-  },
-  {
-    $id: '688d345bd27874c1721c',
-    name: 'Annual Badminton Championship 2024',
-    description: 'Join us for the most exciting badminton tournament of the year! Open to all age groups with separate categories for kids, juniors, and adults. Doubles format with prizes for winners and runners-up. Professional refereeing, tournament T-shirts, and refreshments included.',
-    date: '2024-08-15',
-    time: '08:30 AM',
-    venue: 'Sports Complex - Indoor Badminton Courts',
-    category: 'Sports',
-    price: 400,
-    ticket_count: 200,
-    available_tickets: 75,
-    status: 'upcoming',
-    image_url: '/images/badminton-tournament.jpg',
-    created_by: 'admin',
-    tags: ['badminton', 'sports', 'tournament', 'championship'],
-    featured: true,
-    location: JSON.stringify({
-      address: 'Sports Complex, Indoor Badminton Courts',
-      city: 'Hyderabad',
-      state: 'Telangana',
-      country: 'India',
-      coordinates: { latitude: 17.3850, longitude: 78.4867 }
-    }),
-    created_at: '2024-01-01T00:00:00Z',
-    updated_at: '2024-01-01T00:00:00Z'
   }
 ];
 

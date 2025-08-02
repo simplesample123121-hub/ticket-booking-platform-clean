@@ -19,105 +19,74 @@ export default function EventCard({ event, showActions = true }: EventCardProps)
   }
 
   return (
-    <Card className="relative overflow-hidden hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800">
-      {/* Banner Section */}
-      <div className="relative h-48 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 overflow-hidden">
-        {/* Light Effect */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/30 to-transparent rounded-full blur-xl"></div>
-        <div className="absolute top-8 right-8 w-16 h-16 bg-gradient-to-br from-blue-300/40 to-transparent rounded-full blur-lg"></div>
-        
-        {/* Event Image or Default */}
-        {event.image_url && (
-          <div className="absolute inset-0 opacity-20">
-            <Image
-              src={event.image_url}
-              alt={event.name}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
-        
-        {/* Banner Content */}
-        <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-          {/* Top Section */}
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-2">
-              <Badge variant="secondary" className="bg-white/20 text-white border-0">
-                {event.category} #{parseInt(event.$id?.slice(-1)) || 1}
+    <Card className="relative overflow-hidden hover:shadow-lg transition-shadow">
+      {event.image_url && (
+        <div className="relative h-48 overflow-hidden">
+          <Image
+            src={event.image_url}
+            alt={event.name}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute top-2 left-2 flex gap-1">
+            <Badge variant="secondary" className="text-xs">
+              {event.category} #{parseInt(event.$id?.slice(-1)) || 1}
+            </Badge>
+            {event.featured && (
+              <Badge variant="default" className="text-xs bg-yellow-500 text-white">
+                Featured
               </Badge>
-              {event.featured && (
-                <Badge variant="default" className="bg-yellow-500 text-white border-0">
-                  <Star className="w-3 h-3 mr-1" />
-                  Featured
-                </Badge>
-              )}
-            </div>
-            <div className="text-right">
-              <div className="text-white/80 text-sm font-medium">Hosted by</div>
-              <div className="text-white font-semibold">Event Organizer</div>
-            </div>
-          </div>
-          
-          {/* Main Title */}
-          <div className="mt-4">
-            <h3 className="text-white text-xl font-bold leading-tight line-clamp-2">
-              {event.name}
-            </h3>
+            )}
           </div>
         </div>
-      </div>
-
-      {/* Content Section */}
-      <CardContent className="p-6">
-        {/* Event Details */}
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
-            <Calendar className="w-4 h-4 text-blue-600" />
-            <span className="font-medium">{new Date(event.date).toLocaleDateString('en-US', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric'
-            }).toUpperCase()}</span>
-            <span>•</span>
-            <Clock className="w-4 h-4 text-blue-600" />
-            <span>{event.time}</span>
-          </div>
-          
-          <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
-            <MapPin className="w-4 h-4 text-blue-600" />
-            <span className="line-clamp-1">{event.venue}</span>
-          </div>
-          
-          <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
-            <Users className="w-4 h-4 text-blue-600" />
-            <span>{event.available_tickets} tickets left</span>
-          </div>
-        </div>
-
-        {/* Description */}
-        <p className="text-gray-700 dark:text-gray-300 text-sm mb-6 line-clamp-2">
+      )}
+      <CardContent className="p-4">
+        <CardTitle className="text-lg mb-2">{event.name}</CardTitle>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
           {event.description}
         </p>
         
-        {/* Bottom Section */}
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center gap-2 text-sm">
+            <Calendar className="w-4 h-4" />
+            <span>{new Date(event.date).toLocaleDateString()}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Clock className="w-4 h-4" />
+            <span>{event.time}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <MapPin className="w-4 h-4" />
+            <span>{event.venue}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Users className="w-4 h-4" />
+            <span>{event.available_tickets} tickets left</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <DollarSign className="w-4 h-4" />
+            <span>${event.price}</span>
+          </div>
+        </div>
+
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2">
             <Badge variant={event.status === 'upcoming' ? 'default' : event.status === 'ongoing' ? 'secondary' : 'outline'}>
               {event.status}
             </Badge>
-            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
-              <DollarSign className="w-4 h-4" />
-              <span className="font-semibold text-lg">₹{event.price}</span>
-            </div>
+            {event.featured && (
+              <Badge variant="secondary">Featured</Badge>
+            )}
           </div>
           
           {showActions && (
-            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
-              <Link href={`/events/${event.$id || ''}`}>
-                View Details
-              </Link>
-            </Button>
+            <div className="flex gap-2">
+              <Button asChild size="sm">
+                <Link href={`/events/${event.$id || ''}`}>
+                  View Details
+                </Link>
+              </Button>
+            </div>
           )}
         </div>
       </CardContent>
