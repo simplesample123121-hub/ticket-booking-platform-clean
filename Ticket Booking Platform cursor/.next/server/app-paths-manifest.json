@@ -1,0 +1,8 @@
+{
+  "/api/payment/route": "app/api/payment/route.js",
+  "/api/payment/verify/[txnid]/route": "app/api/payment/verify/[txnid]/route.js",
+  "/events/[id]/page": "app/events/[id]/page.js",
+  "/events/page": "app/events/page.js",
+  "/events/[id]/book/page": "app/events/[id]/book/page.js",
+  "/payment/[status]/[id]/page": "app/payment/[status]/[id]/page.js"
+}
