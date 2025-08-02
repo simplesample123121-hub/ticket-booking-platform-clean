@@ -26,7 +26,7 @@ export async function POST(
 }
 
 export async function GET(
-  request: NextRequest,
+  request: Request,
   { params }: { params: { txnid: string } }
 ) {
   try {
